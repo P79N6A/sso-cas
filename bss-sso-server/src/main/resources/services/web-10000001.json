@@ -1,0 +1,14 @@
+{
+  "@class" : "org.apereo.cas.services.RegexRegisteredService",
+  "serviceId" : "^(https|imaps|http)://localhost:8081.*",
+  "name" : "web",
+  "id" : 10000001,
+  "evaluationOrder" : 10,
+  "accessStrategy" : {
+    "@class" : "org.apereo.cas.services.DefaultRegisteredServiceAccessStrategy",
+    "enabled" : true,
+    "ssoEnabled" : true
+  },
+  "theme": "unisinsight",
+  "logoutUrl": "http://localhost:8081/client/"
+}

@@ -1,0 +1,13 @@
+{
+  "@class" : "org.apereo.cas.support.oauth.services.OAuthRegisteredService",
+  "clientId": "20180901",
+  "clientSecret": "123456",
+  "serviceId" : "^(https|http|imaps)://localhost:8083.*",
+  "name" : "OAuthService",
+  "id" : 1002,
+  "theme": "unisinsight",
+  "attributeReleasePolicy" : {
+    "@class" : "org.apereo.cas.services.ReturnAllowedAttributeReleasePolicy",
+    "allowedAttributes" : [ "java.util.ArrayList", [ "name", "first_name", "middle_name" ] ]
+  }
+}

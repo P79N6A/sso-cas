@@ -1,0 +1,6 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.unisinsight.sso.config.SpringConfig,\
+  com.unisinsight.sso.config.CaptchaWebflowConfiguration,\
+  com.unisinsight.sso.config.DataSourceConfig,\
+  com.unisinsight.sso.config.RememberMeConfiguration,\
+  com.unisinsight.sso.config.CasRestfulAuthenticationConfiguration
