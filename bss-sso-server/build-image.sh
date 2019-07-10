@@ -1,2 +1,2 @@
-!#/bin/sh
-mvn clean:clean war:war docker:build -DpushImage
+#!/bin/sh
+mvn clean package docker:build -DpushImage
