@@ -66,6 +66,26 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.3</version>
             </plugin>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.4.11</version>
+                <configuration>
+                    <serverId>docker-private</serverId>
+                    <registryUrl>192.168.111.26</registryUrl>
+                    <imageName>${docker.image.name}</imageName>
+                    <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.war</include>
+                            <include>classes/*.yml</include>
+                            <include>classes/*.properties</include>
+                        </resource>
+                    </resources>
+                </configuration>
+            </plugin>
         </plugins>
         <finalName>cas</finalName>
     </build>
@@ -83,6 +103,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <docker.image.name>192.168.111.26/framework/bss-sso:5.3.9</docker.image.name>
     </properties>
 
     <dependencies>

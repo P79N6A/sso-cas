@@ -1,0 +1,64 @@
+pipeline {
+    agent {
+        label'192.168.111.26'
+    }
+    stages {
+        stage('Build and Push') {
+            steps {
+                withMaven(jdk: 'jdk-framework', maven: 'maven'){
+                    sh '''
+                        cd bss-sso-server/
+        				chmod +x build-image.sh && ./build-image.sh
+        			'''
+                }
+
+			}
+		}
+		stage('clean none image') {
+            steps {
+                sh '''
+                source /home/jenkins/rm-noneImg.sh
+                '''
+			}
+		}
+		stage('copy run script') {
+             steps {
+                  sh '''
+                  cd /home/jenkins/
+                  ./copy-run-script.sh ${host}
+                  '''
+        	}
+        }
+	    stage('部署'){
+			steps{
+				sh'''
+				echo "******登录$slave_ip服务器并执行jar包******"
+				ssh -t root@${host} > /dev/null 2>&1 << eeooff
+				cd /opt/docker/config/framework
+				./run-service.sh framework-sso ${version}
+				exit
+				eeooff
+				echo done!
+				'''
+			}
+		}
+	}
+    post {
+        always {
+            echo 'One way or another, I have finished'
+        	}
+        success {
+            echo 'I succeeeded! Success'
+        }
+        unstable {
+            echo 'I am unstable :Unstable'
+        }
+        failure {
+            echo 'I failed :Failure'
+
+        }
+        changed {
+            echo 'Things were different before...'
+        }
+        }
+}

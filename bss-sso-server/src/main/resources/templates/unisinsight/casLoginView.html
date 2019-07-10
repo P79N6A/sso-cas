@@ -1,105 +1,142 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <title>单点登录SSO</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title></title>
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
     <link rel="stylesheet" th:href="@{${#themes.code('unisinsight.standard.css.file')}}"/>
 </head>
 
 <body>
-<div class="cotn_principal">
-    <div class="cont_centrar">
-        <div class="cont_login">
-            <div class="cont_info_log_sign_up">
-                <div class="col_md_login">
-                    <div class="cont_ba_opcitiy">
-                        <h2>SSO</h2>
-                        <p>点击登录输入信息</p>
-                        <button class="btn_login" onClick="cambiar_login()">登录</button>
+<div class="cotn_principal"></div>
+<div class="cont_centrar">
+    <div class="middle">
+        <div class="logoBg">
+            <div class="logo"></div>
+        </div>
+        <div class="title"></div>
+        <div class="cont_forms" >                  
+                <form method="post" th:object="${credential}">
+                    <div class="formItemWrap">
+                        <div class="formItem">
+                            <div class="inputImg usernameImage"></div>
+                            <div class="input">
+                            <!-- <div th:unless="${openIdLocalId}"> -->
+                                <div class="placeholder usernamePlaceholder">请输入用户编号</div>
+                                <input 
+                                    class="required loginInput"
+                                    id="username"
+                                    size="25"
+                                    tabindex="1"
+                                    type="text"
+                                    th:disabled="${guaEnabled}"
+                                    th:field="*{username}"
+                                    th:accesskey="#{screen.welcome.label.netid.accesskey}"
+                                    autocomplete="off"
+                                />
+                            <!-- </div> -->
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="cont_back_info">
-                <div class="cont_img_back_grey"> <img th:src="@{${#themes.code('unisinsight.login.images.path')}+'/po.jpeg'}" alt="" /> </div>
-            </div>
-            <div class="cont_forms" >
-                <div class="cont_img_back_"> <img th:src="@{${#themes.code('unisinsight.login.images.path')}+'/po.jpeg'}" alt="" /> </div>
-                <div class="cont_form_login"> <a href="#" onClick="ocultar_login_sign_up()" ><i class="material-icons">&#xE5C4;</i></a>
-                    <form method="post" th:object="${credential}">
-                        <h2>SSO</h2>
-                        <section class="row">
-                            <div th:unless="${openIdLocalId}">
-                                <input class="required"
-                                       id="username"
-                                       size="25"
-                                       tabindex="1"
-                                       placeholder="用户名"
-                                       type="text"
-                                       th:disabled="${guaEnabled}"
-                                       th:field="*{username}"
-                                       th:accesskey="#{screen.welcome.label.netid.accesskey}"
-                                       autocomplete="off"/>
+                    <div class="formItemWrap">
+                        <div class="formItem">
+                            <div class="inputImg passwordImage"></div>
+                            <div class="input">
+                                <div class="placeholder passwordPlaceholder">请输入密码</div>
+                                <input
+                                    class="required loginInput"
+                                    type="password"
+                                    id="password"
+                                    size="25"
+                                    tabindex="2"
+                                    th:accesskey="#{screen.welcome.label.password.accesskey}"
+                                    th:field="*{password}"
+                                    autocomplete="off"
+                                />
                             </div>
-                        </section>
-
-                        <section class="row">
-                            <div>
-                                <input class="required"
-                                       type="password"
-                                       id="password"
-                                       size="25"
-                                       tabindex="2"
-                                       placeholder="密码"
-                                       th:accesskey="#{screen.welcome.label.password.accesskey}"
-                                       th:field="*{password}"
-                                       autocomplete="off"/>
-                            </div>
-                        </section>
-                        <!-- 验证码信息 -->
-                        <section>
-                            <img id="captcha_img" th:src="@{/captcha}" onclick="changeCode()" />
-                            <input
+                            <div class="inputImg showHidden"></div>
+                        </div>
+                    </div>
+                    <!-- 验证码信息 -->
+                    <div class="formItemWrap" id="identifyingCodeText">
+                        <div class="formItem identifyingCode">
+                            <img
+                                class="identifyingCodeImg"
+                                id="captcha_img"
+                                th:src="@{/captcha}"
+                                onclick="changeCode()"
+                            />
+                            <div class="identifyingCodeText">
+                                <div class="placeholder codePlaceholder">验证码</div>
+                                <input
                                     type="text"
                                     id="code"
+                                    class="loginInput"
                                     th:field="*{captcha}"
-                            />
-                            <span id="code_str"></span>
-                        </section>
-
-                        <section class="form-check" th:if="${rememberMeAuthenticationEnabled}">
-                        <p>
-                            <input type="checkbox" name="rememberMe" id="rememberMe" value="true" tabindex="5"/>
-                            <label for="rememberMe" th:text="#{screen.rememberme.checkbox.title}">Remember Me</label>
-                        </p>
-                    </section>
-
-                        <section>
+                                    placeholder="验证码"
+                                    autocomplete="off"
+                                />
+                                <!-- <span id="code_str"></span> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="formItemWrap rememberFormItemWrap">
+                        <div class="formItem identifyingCode" th:if="${rememberMeAuthenticationEnabled}">
+                            <p class="remember">
+                                <input type="checkbox" name="rememberMe" id="rememberMe" value="true" tabindex="5"/>
+                                <label for="rememberMe" th:text="#{screen.rememberme.checkbox.title}">记住我</label>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="formItemWrap rememberFormItemWrap">
+                        <div class="formItem identifyingCode">
                             <input type="hidden" name="execution" th:value="${flowExecutionKey}"/>
                             <input type="hidden" name="_eventId" value="submit"/>
                             <input type="hidden" name="geolocation"/>
-                            <input class="btn btn-submit btn-block btn_login"
-                                   style="text-align: center"
-                                   name="submit"
-                                   accesskey="l"
-                                   th:value="#{screen.welcome.button.login}"
-                                   tabindex="6"
-                                   type="submit"/>
-                        </section>
-                        <div th:if="${#fields.hasErrors('*')}">
-                            <span th:each="err : ${#fields.errors('*')}" th:utext="${err}"/>
+                            <input 
+                                class="btn btn-submit btn-block btn_login"
+                                style="text-align: center"
+                                name="submit"
+                                accesskey="l"
+                                th:value="#{screen.welcome.button.login}"
+                                tabindex="6"
+                                type="submit"
+                            />
                         </div>
-                    </form>
-                </div>
-                <div class="cont_form_sign_up"/>
-            </div>
+                    </div>
+                    <div class="formItemWrap rememberFormItemWrap">
+                            <div class="formItem identifyingCode">
+                                <div class="error" th:if="${#fields.hasErrors('*')}">
+                                    <span th:each="err : ${#fields.errors('*')}" th:utext="${err}"/>
+                                </div>
+                            </div>
+                    </div>
+                </form>
         </div>
     </div>
+    <div class="footer"></div>
 </div>
+
+<!--动画和光晕-->
+<div id="container_plugin" class="container">
+    <div id="output_plugin" class="container"></div>
+    <div id="vignette_plugin" class="overlay vignette"></div>
+    <div id="noise_plugin" class="overlay noise"></div>
+</div>
+<div id="controls_plugin" class="controls" style="display:none;"></div>
+
+<script th:src="@{${#themes.code('unisinsight.javascript.jquery.file')}}"></script>
+<script type="text/javascript" src="./themes/unisinsight/js/config.js"></script>
+<script type="text/javascript" src="./themes/unisinsight/html5flat/js/prefixfree.min.js"></script>
+<script type="text/javascript" src="./themes/unisinsight/html5flat/js/dat.gui.min.js"></script>
+<script type="text/javascript" src="./themes/unisinsight/html5flat/js/fss.min.js"></script>
+<script type="text/javascript" src="./themes/unisinsight/html5flat/js/example.js"></script>
 <script th:src="@{${#themes.code('unisinsight.javascript.file')}}"></script>
 <script th:src="@{${#themes.code('unisinsight.javascript.code.file')}}"></script>
+<script type="text/javascript" src="./themes/unisinsight/js/index.js"></script>
 </body>
 </html>

@@ -5,7 +5,7 @@ function changeCode(){
         /*if(url.indexOf("?") >= 0){
             node.src = url.split('?')[0] +'?id='+uuid();
         }else{*/
-            node.src = "/cas/captcha?id="+uuid();
+            node.src = "/sso/captcha?id="+uuid();
         //}
     }
 }
