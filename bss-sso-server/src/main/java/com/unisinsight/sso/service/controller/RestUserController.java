@@ -26,7 +26,7 @@ import java.io.UnsupportedEncodingException;
 @RestController
 public class RestUserController {
 
-    private static final Logger logger = LoggerFactory.getLogger(RestUserController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(RestUserController.class);
 
     @Autowired
     private UserService userService;
@@ -41,13 +41,15 @@ public class RestUserController {
     @RequestMapping("/rest/login")
     public Object login(@RequestHeader HttpHeaders httpHeaders){
 
-        logger.info("开始验证服务");
+        LOGGER.info("开始验证服务");
 
         RestUser user = null;
         try {
+
             UserTemp userTemp = obtainUserFormHeader(httpHeaders);
             //尝试查找用户库是否存在
             user = userService.findUserByUserName(userTemp.username);
+
             if (user != null) {
                 if (!user.getPassword().equals(userTemp.password)) {
                     //密码不匹配
@@ -62,7 +64,7 @@ public class RestUserController {
                 return new ResponseEntity(HttpStatus.NOT_FOUND);
             }
         } catch (UnsupportedEncodingException e) {
-            logger.error("用户Rest认证错误", e);
+            LOGGER.error("用户Rest认证错误", e);
             new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
         //成功返回json

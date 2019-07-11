@@ -2,7 +2,7 @@
   "@class" : "org.apereo.cas.support.oauth.services.OAuthRegisteredService",
   "clientId": "20180901",
   "clientSecret": "123456",
-  "serviceId" : "^(https|http|imaps)://localhost:8081.*",
+  "serviceId" : "^(https|http|imaps)://.*",
   "name" : "OAuthService",
   "id" : 1002,
   "theme": "unisinsight",

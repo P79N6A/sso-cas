@@ -2,6 +2,8 @@ package com.unisinsight.sso.service.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
+import com.unisinsight.sso.utils.CaptchaUtil;
+import com.unisinsight.sso.utils.Constants;
 import com.unisinsight.sso.utils.KaptchaCodeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,11 +27,13 @@ import java.util.Map;
 
 /**
  * 验证码控制器
+ *
  * @author yangxiaoyu
  */
 @Controller
 public class CaptchaController {
     private static final Logger LOGGER = LoggerFactory.getLogger(CaptchaController.class);
+
     /**
      * 谷歌kaptcha验证码路径
      *
@@ -39,48 +43,29 @@ public class CaptchaController {
      */
     @GetMapping(value = "/captcha", produces = "image/png")
     public void kaptcha(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        byte[] captchaChallengeAsJpeg = null;
-        DefaultKaptcha captchaProducer = KaptchaCodeUtils.getDefaultKaptcha();
-        OutputStream out = null;
-        ByteArrayOutputStream jpegOutputStream = new ByteArrayOutputStream();
+        response.setContentType("image/jpeg");
+        response.setHeader("Cache-Control", "no-cache");
+        response.setHeader("Pragma", "No-cache");
+        response.setDateHeader("Expire", 0);
         try {
-
-            response.setContentType("image/png");
-            response.setHeader("Cache-Control", "no-cache");
-            response.setHeader("Pragma", "No-cache");
-            response.setDateHeader("Expire", 0);
-
             //生产验证码字符串并保存到session中
-            String createText = captchaProducer.createText();
-            request.getSession().setAttribute("captcha", createText);
-
-            //使用生产的验证码字符串返回一个BufferedImage对象并转为byte写入到byte数组中
-            BufferedImage challenge = captchaProducer.createImage(createText);
-            ImageIO.write(challenge, "png", jpegOutputStream);
-
-            //使用response输出流输出图片的byte数组
-            captchaChallengeAsJpeg = jpegOutputStream.toByteArray();
-
-            out = response.getOutputStream();
-            out.write(captchaChallengeAsJpeg);
-            out.flush();
-
+            StringBuffer code = new StringBuffer();
+            BufferedImage image = CaptchaUtil.genRandomCodeImage(code);
+            request.getSession().removeAttribute(Constants.KEY_CAPTCHA);
+            request.getSession().setAttribute(Constants.KEY_CAPTCHA, code.toString());
+            ImageIO.write(image, "jpeg", response.getOutputStream());
         } catch (IllegalArgumentException e) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
             LOGGER.error("生成验证码出错", e);
-            return;
-        } finally {
-            if (out != null) {
-                out.close();
-            }
         }
     }
+
 
     /**
      * 用于前端ajax校验
      */
     @RequestMapping(value = "/chkCode", method = RequestMethod.POST)
-    public void checkCode(@RequestParam("code")String code, HttpServletRequest req, HttpServletResponse resp) {
+    public void checkCode(@RequestParam("code") String code, HttpServletRequest req, HttpServletResponse resp) {
 
         //获取session中的验证码
         String storeCode = (String) req.getSession().getAttribute("captcha_code");
@@ -122,7 +107,7 @@ public class CaptchaController {
             //关闭writer
             writer.close();
         } catch (IOException e) {
-           LOGGER.error("验证码校验出错", e);
+            LOGGER.error("验证码校验出错", e);
         }
     }
 }

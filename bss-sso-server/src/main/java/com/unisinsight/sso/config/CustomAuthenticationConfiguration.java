@@ -34,7 +34,7 @@ public class CustomAuthenticationConfiguration implements AuthenticationEventExe
     public AuthenticationHandler myAuthenticationHandler() {
         // 参数: name, servicesManager, principalFactory, order
         // 定义为优先使用它进行认证
-//        return new CustomUsernamePasswordAuthentication(CustomUsernamePasswordAuthentication.class.getName(),
+//        return new SampleUsernamePasswordAuthentication(SampleUsernamePasswordAuthentication.class.getName(),
 //                servicesManager, new DefaultPrincipalFactory(), 1);
 
         return new CustomerHandlerAuthentication(CustomerHandlerAuthentication.class.getName(),

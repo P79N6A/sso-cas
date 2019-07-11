@@ -1,12 +1,15 @@
 package com.unisinsight.sso.config;
 
 import com.unisinsight.sso.authentication.RememberMeUsernamePasswordCaptchaAuthenticationHandler;
+import com.unisinsight.sso.authentication.SampleUsernamePasswordAuthentication;
 import com.unisinsight.sso.service.UserService;
 import org.apereo.cas.authentication.AuthenticationEventExecutionPlan;
 import org.apereo.cas.authentication.AuthenticationEventExecutionPlanConfigurer;
 import org.apereo.cas.authentication.AuthenticationHandler;
 import org.apereo.cas.authentication.principal.DefaultPrincipalFactory;
+import org.apereo.cas.authentication.support.password.PasswordEncoderUtils;
 import org.apereo.cas.configuration.CasConfigurationProperties;
+import org.apereo.cas.configuration.model.support.jdbc.QueryJdbcAuthenticationProperties;
 import org.apereo.cas.services.ServicesManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -42,16 +45,24 @@ public class RememberMeConfiguration implements AuthenticationEventExecutionPlan
      */
     @Bean
     public AuthenticationHandler rememberMeUsernamePasswordCaptchaAuthenticationHandler() {
+        final QueryJdbcAuthenticationProperties properties = casProperties.getAuthn().getJdbc().getQuery().get(0);
+        if(!casProperties.getTicket().getTgt().getRememberMe().isEnabled()){
+            SampleUsernamePasswordAuthentication handler =  new SampleUsernamePasswordAuthentication(SampleUsernamePasswordAuthentication.class.getName(),
+                     servicesManager, new DefaultPrincipalFactory(), 100);
+            handler.setUserService(userService);
+            handler.setPasswordEncoder(PasswordEncoderUtils.newPasswordEncoder(properties.getPasswordEncoder()));
+            return handler;
+        }
         RememberMeUsernamePasswordCaptchaAuthenticationHandler handler = new RememberMeUsernamePasswordCaptchaAuthenticationHandler(
                 RememberMeUsernamePasswordCaptchaAuthenticationHandler.class.getSimpleName(),
                 servicesManager,
                 new DefaultPrincipalFactory(),
                 100);
         handler.setUserService(userService);
+        handler.setPasswordEncoder(PasswordEncoderUtils.newPasswordEncoder(properties.getPasswordEncoder()));
         return handler;
 
-       /* return new CustomerHandlerAuthentication(CustomerHandlerAuthentication.class.getName(),
-                servicesManager, new DefaultPrincipalFactory(), 1);*/
+
     }
 
     @Override

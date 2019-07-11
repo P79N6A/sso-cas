@@ -8,6 +8,8 @@ import java.security.NoSuchAlgorithmException;
  * @Date: 2019/6/27 11:19
  */
 public final class Md5Util {
+    private Md5Util(){}
+
     public static String encodeMD5(String src) throws NoSuchAlgorithmException {
         // 加密对象，指定加密方式
         MessageDigest md5 = MessageDigest.getInstance("md5");

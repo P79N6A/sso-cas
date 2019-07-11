@@ -10,8 +10,9 @@ import java.util.Properties;
  * 验证码生成工具
  * @author yangxiaoyu
  */
-public class KaptchaCodeUtils {
+public final class KaptchaCodeUtils {
 
+    private KaptchaCodeUtils(){}
     /**
      * Kaptcha 配置信息
      *
