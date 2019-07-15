@@ -1,6 +1,6 @@
 package com.unisinsight.sso.config;
 
-import com.unisinsight.sso.authentication.CustomerHandlerAuthentication;
+import com.unisinsight.sso.authentication.handler.CustomerAuthenticationHandler;
 import org.apereo.cas.authentication.AuthenticationEventExecutionPlan;
 import org.apereo.cas.authentication.AuthenticationEventExecutionPlanConfigurer;
 import org.apereo.cas.authentication.AuthenticationHandler;
@@ -34,10 +34,10 @@ public class CustomAuthenticationConfiguration implements AuthenticationEventExe
     public AuthenticationHandler myAuthenticationHandler() {
         // 参数: name, servicesManager, principalFactory, order
         // 定义为优先使用它进行认证
-//        return new SampleUsernamePasswordAuthentication(SampleUsernamePasswordAuthentication.class.getName(),
+//        return new SampleUsernamePasswordAuthenticationHandler(SampleUsernamePasswordAuthenticationHandler.class.getName(),
 //                servicesManager, new DefaultPrincipalFactory(), 1);
 
-        return new CustomerHandlerAuthentication(CustomerHandlerAuthentication.class.getName(),
+        return new CustomerAuthenticationHandler(CustomerAuthenticationHandler.class.getName(),
                 servicesManager, new DefaultPrincipalFactory(), 1);
     }
 

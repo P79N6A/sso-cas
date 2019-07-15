@@ -224,9 +224,15 @@
         <dependency>
             <groupId>org.apereo.cas</groupId>
             <artifactId>cas-server-core-util-api</artifactId>
-            <version>5.3.9</version>
+            <version>${cas.version}</version>
         </dependency>
 
+        <!--调试rest接口排查问题，可注释-->
+        <dependency>
+            <groupId>org.apereo.cas</groupId>
+            <artifactId>cas-server-support-validation</artifactId>
+            <version>${cas.version}</version>
+        </dependency>
     </dependencies>
 
     <repositories>

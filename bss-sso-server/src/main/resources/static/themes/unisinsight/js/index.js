@@ -21,8 +21,8 @@ $(function () {
         usernamePlaceholder = config.usernamePlaceholder,
         passwordImage = config.passwordImage,
         passwordPlaceholder = config.passwordPlaceholder,
-        isIdentifyingCodeText = config.isIdentifyingCodeText
-        ;
+        isIdentifyingCodeText = config.isIdentifyingCodeText,
+        isRemember = config.isRemember;
     browserTitle && $("title").html(browserTitle);
     title && $(".title").html(title);
     footText && $(".footer").html(footText);
@@ -33,11 +33,20 @@ $(function () {
     animationOpen && animation();
     haloOpen && $(".vignette").css("background-image", "-webkit-radial-gradient(50% 50%, ellipse, rgba(0,0,0,0) 40%, rgba(0,0,0,1) 100%)");
     buttonColor && $(".btn_login").css("background", buttonColor);
-    isIdentifyingCodeText && $("#identifyingCodeText").css("display","block");
     usernameImage && $(".usernameImage").css("background-image", "url(./" + usernameImage + ")");
     usernamePlaceholder && $(".usernameImage").attr("title", usernamePlaceholder);
     usernameImage && $(".passwordImage").css("background-image", "url(./" + passwordImage + ")");
     passwordPlaceholder && $(".passwordImage").attr("title", passwordPlaceholder);
+    if (isIdentifyingCodeText) {
+        $("#identifyingCodeText").css("display", "block");
+    } else {
+        $("#identifyingCodeText").remove();
+    }
+    if (isRemember) {
+        $("#remember").css("display", "block");
+    } else {
+        $("#remember").remove();
+    }
     if (supportPlaceholder) {
         usernamePlaceholder && $("#username").attr("placeholder", usernamePlaceholder);
         passwordPlaceholder && $("#password").attr("placeholder", passwordPlaceholder);

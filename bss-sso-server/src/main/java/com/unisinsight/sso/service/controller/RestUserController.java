@@ -55,10 +55,10 @@ public class RestUserController {
                     //密码不匹配
                     return new ResponseEntity(HttpStatus.BAD_REQUEST);
                 }
-                if (Constants.ONE == user.getDisabled()) {
+               /* if (Constants.ONE == user.getDisabled()) {
                     //用户已锁定
                     return new ResponseEntity(HttpStatus.LOCKED);
-                }
+                }*/
             } else {
                 //不存在 404
                 return new ResponseEntity(HttpStatus.NOT_FOUND);

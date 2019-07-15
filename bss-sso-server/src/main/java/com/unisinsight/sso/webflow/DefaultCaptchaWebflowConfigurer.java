@@ -38,17 +38,21 @@ public class DefaultCaptchaWebflowConfigurer extends DefaultLoginWebflowConfigur
      */
     @Override
     protected void createRememberMeAuthnWebflowConfig(Flow flow) {
+        final ViewState state = getState(flow, CasWebflowConstants.STATE_ID_VIEW_LOGIN_FORM, ViewState.class);
+        final BinderConfiguration cfg = getViewStateBinderConfiguration(state);
         //使用 RememberMe credential
         if (casProperties.getTicket().getTgt().getRememberMe().isEnabled()) {
             createFlowVariable(flow, CasWebflowConstants.VAR_ID_CREDENTIAL, RememberMeUsernamePasswordCaptchaCredential.class);
-            final ViewState state = getState(flow, CasWebflowConstants.STATE_ID_VIEW_LOGIN_FORM, ViewState.class);
-            final BinderConfiguration cfg = getViewStateBinderConfiguration(state);
-            cfg.addBinding(new BinderConfiguration.Binding("rememberMe", null, false));
+            // rememberMe绑定
+            cfg.addBinding(new BinderConfiguration.Binding("rememberMe", null, true));
             // 验证码绑定
             cfg.addBinding(new BinderConfiguration.Binding("captcha", null, true));
         } else {
             //使用 UsernamePassword credential
-            createFlowVariable(flow, CasWebflowConstants.VAR_ID_CREDENTIAL, UsernamePasswordCredential.class);
+            createFlowVariable(flow, CasWebflowConstants.VAR_ID_CREDENTIAL, RememberMeUsernamePasswordCaptchaCredential.class);
+            // 不绑定
+            cfg.addBinding(new BinderConfiguration.Binding("rememberMe", null, false));
+            cfg.addBinding(new BinderConfiguration.Binding("captcha", null, false));
         }
     }
 }

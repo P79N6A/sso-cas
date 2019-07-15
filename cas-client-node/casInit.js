@@ -23,7 +23,7 @@ function initCasClient({ defaultConfig = {}, outerConfig }, app) {
       // CAS服务端地址
       serverPath: conf.infraApiOrigin,
       paths: {
-        validate: '/cas/validate',
+        validate: '/sso/validate',
         serviceValidate: '/sso/serviceValidate',
         proxy: '',
         login: '/sso/login',

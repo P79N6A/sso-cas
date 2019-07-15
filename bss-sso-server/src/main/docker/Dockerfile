@@ -1,4 +1,4 @@
-FROM 192.168.111.26/tomcat/tomcat:8.5.3
+FROM 192.168.111.26/framework/tomcat:8.0.53
 WORKDIR /opt/tomcat/webapps
 ADD cas sso
 WORKDIR /opt/tomcat

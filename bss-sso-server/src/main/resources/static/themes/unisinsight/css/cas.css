@@ -151,7 +151,7 @@ input:-webkit-autofill:active {
   width: 110px;
 }
 
-#identifyingCodeText {
+#identifyingCodeText, #remember {
   display: none;
 }
 

@@ -79,15 +79,16 @@
                                     th:field="*{captcha}"
                                     placeholder="验证码"
                                     autocomplete="off"
+                                    tabindex="3"
                                 />
                                 <!-- <span id="code_str"></span> -->
                             </div>
                         </div>
                     </div>
-                    <div class="formItemWrap rememberFormItemWrap">
+                    <div class="formItemWrap rememberFormItemWrap" id="remember">
                         <div class="formItem identifyingCode" th:if="${rememberMeAuthenticationEnabled}">
                             <p class="remember">
-                                <input type="checkbox" name="rememberMe" id="rememberMe" value="true" tabindex="5"/>
+                                <input type="checkbox" name="rememberMe" id="rememberMe" value="true" tabindex="4"/>
                                 <label for="rememberMe" th:text="#{screen.rememberme.checkbox.title}">记住我</label>
                             </p>
                         </div>
@@ -103,7 +104,7 @@
                                 name="submit"
                                 accesskey="l"
                                 th:value="#{screen.welcome.button.login}"
-                                tabindex="6"
+                                tabindex="5"
                                 type="submit"
                             />
                         </div>

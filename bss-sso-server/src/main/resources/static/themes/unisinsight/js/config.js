@@ -15,5 +15,6 @@ var config = {
     usernamePlaceholder: "请输入用户名", // 账号框提示语
     passwordImage: "themes/unisinsight/images/passwordImage.png", // 密码输入框图标
     passwordPlaceholder: "请输入密码", // 密码框提示语
-    isIdentifyingCodeText: true, // 是否有验证码
+    isIdentifyingCodeText: false, // 是否有验证码
+    isRemember: false, // 是否有记住我
 }

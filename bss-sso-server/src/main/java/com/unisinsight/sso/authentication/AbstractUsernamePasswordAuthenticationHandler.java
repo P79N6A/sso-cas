@@ -1,11 +1,9 @@
 package com.unisinsight.sso.authentication;
 
-import com.unisinsight.sso.exception.AccountDisableException;
-import com.unisinsight.sso.exception.AccountExpireException;
+import com.unisinsight.sso.authentication.handler.RememberMeUsernamePasswordCaptchaAuthenticationHandler;
 import com.unisinsight.sso.exception.UsernamePasswordException;
 import com.unisinsight.sso.service.UserService;
 import com.unisinsight.sso.service.entity.User;
-import com.unisinsight.sso.utils.Constants;
 import org.apache.commons.lang3.StringUtils;
 import org.apereo.cas.authentication.AuthenticationHandlerExecutionResult;
 import org.apereo.cas.authentication.Credential;
@@ -68,12 +66,12 @@ public abstract class AbstractUsernamePasswordAuthenticationHandler extends Abst
         if (user == null || !user.getPassword().equalsIgnoreCase(transformedPsw)) {
             throw new UsernamePasswordException("用户名或密码错误！");
         }
-        if (Constants.ONE == user.getDisabled()) {
+        /*if (Constants.ONE == user.getDisabled()) {
             throw new AccountDisableException("账号已被锁定,请联系管理员！");
         }
         if (Constants.ONE == user.getExpired()) {
             throw new AccountExpireException("密码已过期,请修改密码！");
-        }
+        }*/
         return authenticateUsernamePasswordInternal(credential, user);
     }
 

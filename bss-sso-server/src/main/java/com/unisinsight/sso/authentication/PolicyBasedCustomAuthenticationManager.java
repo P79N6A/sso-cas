@@ -4,6 +4,7 @@ package com.unisinsight.sso.authentication;
 import com.codahale.metrics.annotation.Counted;
 import com.codahale.metrics.annotation.Metered;
 import com.codahale.metrics.annotation.Timed;
+import com.unisinsight.sso.authentication.handler.RememberMeUsernamePasswordCaptchaAuthenticationHandler;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;

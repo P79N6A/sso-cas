@@ -1,7 +1,7 @@
 package com.unisinsight.sso.config;
 
-import com.unisinsight.sso.authentication.RememberMeUsernamePasswordCaptchaAuthenticationHandler;
-import com.unisinsight.sso.authentication.SampleUsernamePasswordAuthentication;
+import com.unisinsight.sso.authentication.handler.RememberMeUsernamePasswordCaptchaAuthenticationHandler;
+import com.unisinsight.sso.authentication.handler.SampleUsernamePasswordAuthenticationHandler;
 import com.unisinsight.sso.service.UserService;
 import org.apereo.cas.authentication.AuthenticationEventExecutionPlan;
 import org.apereo.cas.authentication.AuthenticationEventExecutionPlanConfigurer;
@@ -47,7 +47,7 @@ public class RememberMeConfiguration implements AuthenticationEventExecutionPlan
     public AuthenticationHandler rememberMeUsernamePasswordCaptchaAuthenticationHandler() {
         final QueryJdbcAuthenticationProperties properties = casProperties.getAuthn().getJdbc().getQuery().get(0);
         if(!casProperties.getTicket().getTgt().getRememberMe().isEnabled()){
-            SampleUsernamePasswordAuthentication handler =  new SampleUsernamePasswordAuthentication(SampleUsernamePasswordAuthentication.class.getName(),
+            SampleUsernamePasswordAuthenticationHandler handler =  new SampleUsernamePasswordAuthenticationHandler(SampleUsernamePasswordAuthenticationHandler.class.getName(),
                      servicesManager, new DefaultPrincipalFactory(), 100);
             handler.setUserService(userService);
             handler.setPasswordEncoder(PasswordEncoderUtils.newPasswordEncoder(properties.getPasswordEncoder()));

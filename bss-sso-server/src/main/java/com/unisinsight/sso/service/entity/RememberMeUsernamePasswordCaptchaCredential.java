@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
  */
 public class RememberMeUsernamePasswordCaptchaCredential extends RememberMeUsernamePasswordCredential {
 
-    @Size(min = 5,max = 5, message = "require captcha")
+    @Size(min = 5,max = 5, message = "请输入验证码")
     private String captcha;
 
     public String getCaptcha() {
