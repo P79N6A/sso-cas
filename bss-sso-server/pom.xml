@@ -119,10 +119,15 @@
             <artifactId>cas-server-support-jdbc-drivers</artifactId>
             <version>${cas.version}</version>
         </dependency>
-        <!--Service配置-->
+        <!--Service配置
         <dependency>
             <groupId>org.apereo.cas</groupId>
             <artifactId>cas-server-support-json-service-registry</artifactId>
+            <version>${cas.version}</version>
+        </dependency>-->
+        <dependency>
+            <groupId>org.apereo.cas</groupId>
+            <artifactId>cas-server-support-jpa-service-registry</artifactId>
             <version>${cas.version}</version>
         </dependency>
         <!--认证通过返回属性-->
@@ -135,19 +140,19 @@
         <dependency>
             <groupId>org.apereo.cas</groupId>
             <artifactId>cas-server-support-rest-authentication</artifactId>
-            <exclusions>
+            <!--<exclusions>
                 <exclusion>
                     <groupId>net.shibboleth.tool</groupId>
                     <artifactId>xmlsectool</artifactId>
                 </exclusion>
-            </exclusions>
+            </exclusions>-->
             <version>${cas.version}</version>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>net.shibboleth.tool</groupId>
             <artifactId>xmlsectool</artifactId>
             <version>2.0.0-SNAPSHOT</version>
-        </dependency>
+        </dependency>-->
 
         <!-- Custom Authentication -->
         <dependency>
@@ -233,6 +238,7 @@
             <artifactId>cas-server-support-validation</artifactId>
             <version>${cas.version}</version>
         </dependency>
+
     </dependencies>
 
     <repositories>

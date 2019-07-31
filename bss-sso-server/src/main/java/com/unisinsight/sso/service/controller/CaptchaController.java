@@ -68,12 +68,12 @@ public class CaptchaController {
     public void checkCode(@RequestParam("code") String code, HttpServletRequest req, HttpServletResponse resp) {
 
         //获取session中的验证码
-        String storeCode = (String) req.getSession().getAttribute("captcha_code");
+        String storeCode = (String) req.getSession().getAttribute(Constants.KEY_CAPTCHA);
         code = code.trim();
         //返回值
         Map<String, Object> map = new HashMap<String, Object>();
         //验证是否对
-        if (!StringUtils.isEmpty(storeCode) && code.equals(storeCode)) {
+        if (!StringUtils.isEmpty(storeCode) && code.equalsIgnoreCase(storeCode)) {
             map.put("error", false);
             map.put("msg", "验证成功");
         } else if (StringUtils.isEmpty(code)) {

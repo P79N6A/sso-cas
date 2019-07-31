@@ -32,6 +32,7 @@ import java.util.List;
 /**
  * 表单处理器
  *
+ * 记录登录登出日志：关注CasCoreLogoutConfiguration和RememberMeUsernamePasswordCaptchaAuthenticationHandler类
  * @author: yangxiaoyu
  * @description:
  */
