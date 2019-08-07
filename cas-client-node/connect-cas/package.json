@@ -1,0 +1,31 @@
+{
+  "dependencies": {
+    "co": "^4.6.0",
+    "deprecate": "^0.1.0",
+    "lodash": "^4.13.1",
+    "query-string": "^4.1.0",
+    "xml2js": "^0.4.16"
+  },
+  "description": "NodeJS implement of CAS(Central Authentication Service) client.",
+  "devDependencies": {
+    "body-parser": "^1.15.1",
+    "chai": "^3.5.0",
+    "cookie-parser": "^1.4.3",
+    "coveralls": "^2.11.12",
+    "ejs": "^2.4.2",
+    "es6-promise": "^3.2.1",
+    "express": "^4.13.4",
+    "express-session": "^1.13.0",
+    "istanbul": "^0.4.4",
+    "lodash": "^4.13.1",
+    "mocha": "^2.5.3",
+    "mocha-lcov-reporter": "^1.2.0",
+    "rewire": "^2.5.2",
+    "session-memory-store": "^0.2.2",
+    "uuid": "^2.0.2"
+  },
+  "license": "MIT",
+  "main": "index.js",
+  "name": "connect-cas2",
+  "version": "1.2.6"
+}
